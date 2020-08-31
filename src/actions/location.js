@@ -4,31 +4,28 @@ import {
   GET_USER_COORDS_FAILURE,
 } from "../constants/actionTypes";
 
-const options = {
-  enableHighAccuracy: true,
-  maximumAge: 30000,
-  timeout: 27000,
-};
-
-function success(position) {
+function resolve(position) {
   return {
     latitude: position.coords.latitude,
     longitude: position.coords.longitude,
   };
 }
 
-function error() {
+function reject() {
   return {
-    message: "Sorry, no position available."
-  }
+    message: "Sorry, no position available.",
+  };
 }
 
 const getUserLocation = () => {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(getUserLocationBegin());
 
-    const payload = await navigator.geolocation.watchPosition(success, error, options);
-    
+    new Promise((resolve, reject) => {
+      navigator.geolocation.watchPosition(resolve, reject);
+    })
+      .then((res) => dispatch(getUserLocationSuccess(res)))
+      .catch((err) => getUserLocationFailure(err));
   };
 };
 
