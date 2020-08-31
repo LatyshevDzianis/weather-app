@@ -4,45 +4,45 @@ import {
   GET_USER_COORDS_FAILURE,
 } from "../constants/actionTypes";
 
-function resolve(position) {
+const resolve = (position) => {
   return {
     latitude: position.coords.latitude,
     longitude: position.coords.longitude,
   };
-}
+};
 
-function reject() {
+const reject = () => {
   return {
     message: "Sorry, no position available.",
   };
-}
+};
 
-const getUserLocation = () => {
+export const getUserCoords = () => {
   return (dispatch) => {
-    dispatch(getUserLocationBegin());
+    dispatch(getUserCoordsBegin());
 
     new Promise((resolve, reject) => {
       navigator.geolocation.watchPosition(resolve, reject);
     })
-      .then((res) => dispatch(getUserLocationSuccess(res)))
-      .catch((err) => getUserLocationFailure(err));
+      .then((res) => dispatch(getUserCoordsSuccess(res)))
+      .catch((err) => getUserCoordsFailure(err));
   };
 };
 
-const getUserLocationBegin = () => {
+const getUserCoordsBegin = () => {
   return {
     type: GET_USER_COORDS_BEGIN,
   };
 };
 
-const getUserLocationSuccess = (data) => {
+const getUserCoordsSuccess = (data) => {
   return {
     type: GET_USER_COORDS_SUCCESS,
     payload: data,
   };
 };
 
-const getUserLocationFailure = (err) => {
+const getUserCoordsFailure = (err) => {
   return {
     type: GET_USER_COORDS_FAILURE,
     payload: err,

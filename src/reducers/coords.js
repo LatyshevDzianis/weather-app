@@ -5,11 +5,11 @@ import {
 } from "../constants/actionTypes";
 
 const initialState = {
-  country: "",
-  city: "",
+  latitude: 0,
+  longitude: 0,
 };
 
-const position = (state = initialState, action) => {
+const coords = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_COORDS_BEGIN: {
       return {
@@ -21,8 +21,8 @@ const position = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        country: action.payload.country,
-        city: action.payload.city,
+        latitude: action.payload.coords.latitude,
+        longitude: action.payload.coords.longitude,
       };
     }
     case GET_USER_COORDS_FAILURE: {
@@ -37,4 +37,4 @@ const position = (state = initialState, action) => {
   }
 };
 
-export default position;
+export default coords;

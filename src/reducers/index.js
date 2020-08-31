@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import position from "./position";
+import coords from "./coords";
 
 const rootReducer = combineReducers({
-  position: position,
+  coords,
 });
 
 export default rootReducer;
