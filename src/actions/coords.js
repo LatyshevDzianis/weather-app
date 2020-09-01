@@ -17,16 +17,14 @@ const reject = () => {
   };
 };
 
-export const getUserCoords = () => {
-  return (dispatch) => {
-    dispatch(getUserCoordsBegin());
+export const getUserCoords = () => (dispatch) => {
+  dispatch(getUserCoordsBegin());
 
-    new Promise((resolve, reject) => {
-      navigator.geolocation.watchPosition(resolve, reject);
-    })
-      .then((res) => dispatch(getUserCoordsSuccess(res)))
-      .catch((err) => getUserCoordsFailure(err));
-  };
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.watchPosition(resolve, reject);
+  })
+    .then((res) => dispatch(getUserCoordsSuccess(res)))
+    .catch((err) => getUserCoordsFailure(err));
 };
 
 const getUserCoordsBegin = () => {

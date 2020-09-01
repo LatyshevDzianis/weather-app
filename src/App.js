@@ -1,24 +1,50 @@
 import React, { useEffect } from "react";
-import { Container, Typography, Card, CardContent } from "@material-ui/core";
-import { getUserCoords } from "./actions/coords";
+import {
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  Box,
+} from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchOpenWeatherByCoords } from "./actions/openWeather";
+import WeatherInfo from "./components/WeatherInfo/index";
+import CityInput from "./components/CityInput";
 
 function App() {
   const dispatch = useDispatch();
-  const coords = useSelector((state) => state.coords);
+  const loading = useSelector((state) => state.weather.loading);
+  const error = useSelector((state) => state.weather.error);
 
   useEffect(() => {
-    dispatch(getUserCoords());
+    dispatch(fetchOpenWeatherByCoords());
   }, []);
 
   return (
     <Container maxWidth="md">
       <Card>
         <CardContent>
-          <Typography align="center" variant="h2" gutterBottom>
+          <Typography align="center" variant="h2" paragraph={true}>
             Weather App
           </Typography>
-          <p>{`Latitude: ${coords.latitude}, longitude: ${coords.longitude}`}</p>
+          <CityInput />
+          {!error ? (
+            loading ? (
+              <Box mt={4}>
+                <Typography align="center" variant="h4">
+                  Loading...
+                </Typography>
+              </Box>
+            ) : (
+              <WeatherInfo />
+            )
+          ) : (
+            <Box mt={3}>
+              <Typography align="center" variant="h4">
+                {error}
+              </Typography>
+            </Box>
+          )}
         </CardContent>
       </Card>
     </Container>
