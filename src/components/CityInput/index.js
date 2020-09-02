@@ -37,7 +37,7 @@ const CityInput = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3} alignItems="flex-end">
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <TextField
             onChange={handleInputChange}
             value={cityInput}
@@ -45,7 +45,7 @@ const CityInput = () => {
             fullWidth={true}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <InputLabel id="api-select">Select an API</InputLabel>
           <Select
             onChange={handleSelectChange}
@@ -58,7 +58,7 @@ const CityInput = () => {
             <MenuItem value="weatherStack">WeatherStack</MenuItem>
           </Select>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <Button
             type="submit"
             variant="contained"

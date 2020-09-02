@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchOpenWeatherByCoords());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Container maxWidth="md">

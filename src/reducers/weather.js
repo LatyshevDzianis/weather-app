@@ -18,6 +18,7 @@ const initialState = {
   pressure: null,
   humidity: null,
   windSpeed: null,
+  icon: null,
 };
 
 const weather = (state = initialState, action) => {
@@ -49,6 +50,7 @@ const weather = (state = initialState, action) => {
         sunset: action.payload.sys.sunset,
         city: action.payload.name,
         country: action.payload.sys.country,
+        icon: action.payload.weather[0].icon,
       };
     }
     case FETCH_WEATHER_STACK_SUCCESS: {
@@ -63,6 +65,7 @@ const weather = (state = initialState, action) => {
         windSpeed: action.payload.current.wind_speed,
         city: action.payload.location.name,
         country: action.payload.location.country,
+        icon: action.payload.current.weather_icons[0],
       };
     }
     case FETCH_OPEN_WEATHER_FAILURE: {

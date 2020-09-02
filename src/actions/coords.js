@@ -4,19 +4,6 @@ import {
   GET_USER_COORDS_FAILURE,
 } from "../constants/actionTypes";
 
-const resolve = (position) => {
-  return {
-    latitude: position.coords.latitude,
-    longitude: position.coords.longitude,
-  };
-};
-
-const reject = () => {
-  return {
-    message: "Sorry, no position available.",
-  };
-};
-
 export const getUserCoords = () => (dispatch) => {
   dispatch(getUserCoordsBegin());
 

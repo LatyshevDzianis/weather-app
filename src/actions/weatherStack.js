@@ -16,12 +16,17 @@ export const fetchWeatherStackByCity = (params) => async (dispatch) => {
         params
       )}&access_key=${WEATHER_STACK_API_KEY}`
     );
+
     const json = await res.json();
+
     console.log(json);
+    if (json.error) {
+      throw new Error("City not found");
+    }
+
     dispatch(fetchWeatherStackSuccess(json));
   } catch (err) {
-    console.log("Error here", err);
-    dispatch(fetchWeatherStackFailure(err));
+    dispatch(fetchWeatherStackFailure(err.message));
   }
 };
 
