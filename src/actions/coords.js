@@ -11,7 +11,7 @@ export const getUserCoords = () => (dispatch) => {
     navigator.geolocation.watchPosition(resolve, reject);
   })
     .then((res) => dispatch(getUserCoordsSuccess(res)))
-    .catch((err) => getUserCoordsFailure(err));
+    .catch((err) => dispatch(getUserCoordsFailure(err)));
 };
 
 const getUserCoordsBegin = () => {

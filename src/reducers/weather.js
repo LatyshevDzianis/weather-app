@@ -51,6 +51,7 @@ const weather = (state = initialState, action) => {
         city: action.payload.name,
         country: action.payload.sys.country,
         icon: action.payload.weather[0].icon,
+        api: "OpenWeather",
       };
     }
     case FETCH_WEATHER_STACK_SUCCESS: {
@@ -66,6 +67,7 @@ const weather = (state = initialState, action) => {
         city: action.payload.location.name,
         country: action.payload.location.country,
         icon: action.payload.current.weather_icons[0],
+        api: "WeatherStack",
       };
     }
     case FETCH_OPEN_WEATHER_FAILURE: {

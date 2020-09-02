@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 
 const CityInput = () => {
   const [cityInput, setCityInput] = useState("");
-  const [apiSelect, setApiSelect] = useState("openWeather");
+  const [apiSelect, setApiSelect] = useState("");
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {

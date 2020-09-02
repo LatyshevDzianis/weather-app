@@ -29,8 +29,8 @@ export const fetchOpenWeatherByCity = (params) => async (dispatch) => {
 
 export const fetchOpenWeatherByCoords = () => async (dispatch) => {
   try {
-    const { payload } = await dispatch(getUserCoords());
 
+    const { payload } = await dispatch(getUserCoords());
     if (payload.code === 1) {
       throw new Error("We don't have your location");
     }
@@ -40,6 +40,7 @@ export const fetchOpenWeatherByCoords = () => async (dispatch) => {
       `${OPEN_WEATHER_URL}?lat=${payload.coords.latitude}&lon=${payload.coords.longitude}&appid=${OPEN_WEATHER_API_KEY}`
     );
     const json = await res.json();
+    //    localStorage.setItem("city", json.name);
     dispatch(fetchOpenWeatherSuccess(json));
   } catch (err) {
     dispatch(fetchOpenWeatherFailure(err.message));
