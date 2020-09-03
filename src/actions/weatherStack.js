@@ -19,7 +19,6 @@ export const fetchWeatherStackByCity = (params) => async (dispatch) => {
 
     const json = await res.json();
 
-    console.log(json);
     if (json.error) {
       throw new Error("City not found");
     }
