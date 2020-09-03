@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 import AdditionalInfo from "./AdditionalInfo";
 
 const fahrengeitToCelsius = (value) => {
-  console.log("Value", value);
   const convertedValue = Math.round((value - 32) / 1.8);
-  console.log("Converted", convertedValue);
   return convertedValue < 0 ? `${convertedValue}°C` : `+${convertedValue}°C`;
 };
 
