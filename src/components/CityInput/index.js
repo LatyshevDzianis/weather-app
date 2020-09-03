@@ -12,25 +12,38 @@ import { fetchWeatherStackByCity } from "../../actions/weatherStack";
 import { useDispatch } from "react-redux";
 
 const CityInput = () => {
-  const [cityInput, setCityInput] = useState("");
-  const [apiSelect, setApiSelect] = useState("");
+  const [cityInfo, setCityInfo] = useState({ text: "", error: false });
+  const [apiInfo, setApiInfo] = useState({ text: "", error: false });
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
-    setCityInput(e.target.value);
+    if (e.target.value.trim()) {
+      setCityInfo({ text: e.target.value, error: false });
+    } else {
+      setCityInfo({ text: e.target.value.trim(), error: true });
+    }
   };
 
   const handleSelectChange = (e) => {
-    setApiSelect(e.target.value);
+    if (e.target.value) {
+      setApiInfo({ text: e.target.value, error: false });
+    } else {
+      setApiInfo({ text: e.target.value, error: true });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (apiSelect === "openWeather") {
-      dispatch(fetchOpenWeatherByCity({ q: cityInput }));
+    if (cityInfo.text && apiInfo.text) {
+      if (apiInfo.text === "openWeather") {
+        dispatch(fetchOpenWeatherByCity({ q: cityInfo.text }));
+      } else {
+        dispatch(fetchWeatherStackByCity({ query: cityInfo.text, units: "s" }));
+      }
     } else {
-      dispatch(fetchWeatherStackByCity({ query: cityInput, units: "s" }));
+      !cityInfo.text && setCityInfo({ ...cityInfo, error: true });
+      !apiInfo.text && setApiInfo({ ...apiInfo, error: true });
     }
   };
 
@@ -39,8 +52,9 @@ const CityInput = () => {
       <Grid container spacing={3} alignItems="flex-end">
         <Grid item xs={12} sm={4}>
           <TextField
+            error={cityInfo.error}
             onChange={handleInputChange}
-            value={cityInput}
+            value={cityInfo.text}
             label="Enter the city"
             fullWidth={true}
           />
@@ -48,11 +62,11 @@ const CityInput = () => {
         <Grid item xs={12} sm={4}>
           <InputLabel id="api-select">Select an API</InputLabel>
           <Select
+            error={apiInfo.error}
             onChange={handleSelectChange}
             fullWidth={true}
             labelId="api-select"
-            id="api-select"
-            value={apiSelect}
+            value={apiInfo.text}
           >
             <MenuItem value="openWeather">OpenWeather</MenuItem>
             <MenuItem value="weatherStack">WeatherStack</MenuItem>

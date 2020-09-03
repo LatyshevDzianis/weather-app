@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { Container, Typography, Card, CardContent } from "@material-ui/core";
+import {
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  Box,
+} from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOpenWeatherByCoords } from "./actions/openWeather";
 import WeatherInfo from "./components/WeatherInfo/index";
@@ -20,23 +26,25 @@ function App() {
 
   return (
     <Container maxWidth="md">
-      <Card>
-        <CardContent>
-          <Typography align="center" variant="h2" paragraph={true}>
-            Weather App
-          </Typography>
-          <CityInput />
-          {!error ? (
-            loading ? (
-              <Loader />
+      <Box m={3}>
+        <Card>
+          <CardContent>
+            <Typography align="center" variant="h2" paragraph={true}>
+              Weather App
+            </Typography>
+            <CityInput />
+            {!error ? (
+              loading ? (
+                <Loader />
+              ) : (
+                <WeatherInfo />
+              )
             ) : (
-              <WeatherInfo />
-            )
-          ) : (
-            <Error error={error} />
-          )}
-        </CardContent>
-      </Card>
+              <Error error={error} />
+            )}
+          </CardContent>
+        </Card>
+      </Box>
     </Container>
   );
 }
