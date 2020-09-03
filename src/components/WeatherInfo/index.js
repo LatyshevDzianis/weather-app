@@ -18,7 +18,7 @@ const WeatherInfo = () => {
   let imageUrl = null;
 
   if (icon && icon.length < 5) {
-    imageUrl = `http://openweathermap.org/img/w/${icon}.png`;
+    imageUrl = `https://openweathermap.org/img/w/${icon}.png`;
   } else {
     imageUrl = icon;
   }
