@@ -8,7 +8,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { fetchOpenWeatherByCity } from "../../actions/openWeather";
-import { fetchWeatherStackByCity } from "../../actions/weatherStack";
+import { fetchWeatherApiByCity } from "../../actions/weatherApi";
 import { useDispatch } from "react-redux";
 
 const CityInput = () => {
@@ -37,9 +37,11 @@ const CityInput = () => {
 
     if (cityInfo.text && apiInfo.text) {
       if (apiInfo.text === "openWeather") {
-        dispatch(fetchOpenWeatherByCity({ q: cityInfo.text }));
+        dispatch(
+          fetchOpenWeatherByCity({ q: cityInfo.text, units: "imperial" })
+        );
       } else {
-        dispatch(fetchWeatherStackByCity({ query: cityInfo.text, units: "s" }));
+        dispatch(fetchWeatherApiByCity({ q: cityInfo.text }));
       }
     } else {
       !cityInfo.text && setCityInfo({ ...cityInfo, error: true });
@@ -69,7 +71,7 @@ const CityInput = () => {
             value={apiInfo.text}
           >
             <MenuItem value="openWeather">OpenWeather</MenuItem>
-            <MenuItem value="weatherStack">WeatherStack</MenuItem>
+            <MenuItem value="weatherApi">Weather API</MenuItem>
           </Select>
         </Grid>
         <Grid item xs={12} sm={4}>

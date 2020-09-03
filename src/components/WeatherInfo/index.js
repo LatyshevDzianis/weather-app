@@ -3,9 +3,11 @@ import { Box, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import AdditionalInfo from "./AdditionalInfo";
 
-const convertToCelsius = (value) => {
-  value = Math.round(value - 273.15);
-  return value < 0 ? `${value}°C` : `+${value}°C`;
+const fahrengeitToCelsius = (value) => {
+  console.log("Value", value);
+  const convertedValue = Math.round((value - 32) / 1.8);
+  console.log("Converted", convertedValue);
+  return convertedValue < 0 ? `${convertedValue}°C` : `+${convertedValue}°C`;
 };
 
 const imgStyles = {
@@ -29,7 +31,7 @@ const WeatherInfo = () => {
         weather && weather.country
       }`}</Typography>
       <Typography display="inline" variant="h3">
-        {weather && convertToCelsius(weather.temperature)}
+        {weather && fahrengeitToCelsius(weather.temperature)}
         {", "}
         {weather && weather.weather}
         {weather.icon && <img style={imgStyles} src={imageUrl} alt="..." />}

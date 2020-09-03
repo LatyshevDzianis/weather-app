@@ -2,9 +2,9 @@ import {
   FETCH_OPEN_WEATHER_BEGIN,
   FETCH_OPEN_WEATHER_SUCCESS,
   FETCH_OPEN_WEATHER_FAILURE,
-  FETCH_WEATHER_STACK_BEGIN,
-  FETCH_WEATHER_STACK_SUCCESS,
-  FETCH_WEATHER_STACK_FAILURE,
+  FETCH_WEATHER_API_BEGIN,
+  FETCH_WEATHER_API_SUCCESS,
+  FETCH_WEATHER_API_FAILURE,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -29,7 +29,7 @@ const weather = (state = initialState, action) => {
         loading: true,
       };
     }
-    case FETCH_WEATHER_STACK_BEGIN: {
+    case FETCH_WEATHER_API_BEGIN: {
       return {
         ...state,
         loading: true,
@@ -54,20 +54,20 @@ const weather = (state = initialState, action) => {
         api: "OpenWeather",
       };
     }
-    case FETCH_WEATHER_STACK_SUCCESS: {
+    case FETCH_WEATHER_API_SUCCESS: {
       return {
         ...state,
         loading: false,
         error: null,
-        temperature: action.payload.current.temperature,
-        weather: action.payload.current.weather_descriptions[0],
-        pressure: action.payload.current.pressure,
+        temperature: action.payload.current.temp_f,
+        weather: action.payload.current.condition.text,
+        pressure: action.payload.current.pressure_mb,
         humidity: action.payload.current.humidity,
-        windSpeed: action.payload.current.wind_speed,
+        windSpeed: action.payload.current.wind_mph,
         city: action.payload.location.name,
         country: action.payload.location.country,
-        icon: action.payload.current.weather_icons[0],
-        api: "WeatherStack",
+        icon: action.payload.current.condition.icon,
+        api: "WeatherApi",
       };
     }
     case FETCH_OPEN_WEATHER_FAILURE: {
@@ -77,7 +77,7 @@ const weather = (state = initialState, action) => {
         error: action.payload,
       };
     }
-    case FETCH_WEATHER_STACK_FAILURE: {
+    case FETCH_WEATHER_API_FAILURE: {
       return {
         ...state,
         loading: false,

@@ -10,7 +10,7 @@ const AdditionalInfo = () => {
     <>
       <Typography>Pressure: {weather.pressure} hPa</Typography>
       <Typography>Humidity: {weather.humidity} %</Typography>
-      <Typography>Wind speed: {weather.windSpeed} meter/sec</Typography>
+      <Typography>Wind speed: {weather.windSpeed} mile/hour</Typography>
     </>
   );
 };
